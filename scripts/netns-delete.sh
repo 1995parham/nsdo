@@ -19,10 +19,12 @@ function main() {
 	sudo ip link del "${namespace}o"
 
 	# delete resolv.conf setup
-	[ ! -d "/etc/netns/$namespace" ] || rm -rf "/etc/netns/$namespace"
+	[ ! -d "/etc/netns/$namespace" ] || sudo rm -rf "/etc/netns/$namespace"
 
 	# disable IPV4 forward
 	echo "0" | sudo tee /proc/sys/net/ipv4/ip_forward
+
+	sudo ip netns del "$namespace"
 }
 
 main "$@"

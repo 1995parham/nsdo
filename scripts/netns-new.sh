@@ -60,9 +60,9 @@ EOF
 	# setup resolv.conf for this network namespace
 	if [ $use_resolve ]; then
 		[ -d "/etc/netns/$namespace" ] || sudo mkdir -p "/etc/netns/$namespace"
-		echo "nameserver 8.8.8.8" | sudo tee "/etc/netns/$namespace/resolve.conf"
+		echo "nameserver 8.8.8.8" | sudo tee "/etc/netns/$namespace/resolv.conf"
 	fi
-	action "etc" "setup resolve.conf"
+	action "etc" "setup resolv.conf"
 
 	sudo iptables -A FORWARD -i "$internet" -o "${namespace}o" -j ACCEPT
 	sudo iptables -A FORWARD -o "$internet" -i "${namespace}o" -j ACCEPT
